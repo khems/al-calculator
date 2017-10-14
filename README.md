@@ -4,8 +4,10 @@
    populated.
 
 Note: date needs to be given in one of these formats:
-   Type        Example
-   ISO Date    2015-03-25
-   Short Date  03/25/2015
-   Long Date   Mar 25 2015 or 25 Mar 2015
-   Full Date   Wednesday March 25 2015
+
+| Type          | Example                    |
+| ------------- | -------------------------- |
+| ISO Date      | 2015-03-25                 |
+| Short Date    | 03/25/2015                 |
+| Long Date     | Mar 25 2015 or 25 Mar 2015 |
+| Full Date     | Wednesday March 25 2015    |
