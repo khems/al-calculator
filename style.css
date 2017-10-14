@@ -1,0 +1,53 @@
+body {
+    width: 420px;
+    margin: auto;
+    padding: 20px;
+}
+
+input {
+    float: right;
+    background: linear-gradient(to right, #ccb3ff 0%, #ffffff 100%);
+    text-align: center;
+}
+
+div.tab {
+    overflow: hidden;
+    border: 1px solid #d9b3ff;
+    background: linear-gradient(to right, #ccb3ff 0%, #ffffff 100%);
+}
+
+div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+div.tab button:hover {
+    background-color: #eee6ff;
+}
+
+div.tab button.active {
+    background: linear-gradient(to right, #9933ff 0%, #ffffff 100%);
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #d9b3ff;
+    border-top: none;
+    background: linear-gradient(to right, #9933ff 0%, #ffffff 100%);
+}
+
+h3 {
+    text-align: center;
+}
+
+.result {
+    color: purple;
+    font-weight: bold;
+    border: 1px solid purple;
+}
