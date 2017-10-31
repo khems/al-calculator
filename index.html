@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>Holiday Calculator</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js"></script>
   </head>
   <body>
     <div class="tab">
       <button class="tablinks" onclick="openTab(event, 'fullPartTime')">Full Time / Part Time</button>
       <button class="tablinks" onclick="openTab(event, 'midyearStart')">Mid Year Starter</button>
+      <button class="tablinks" onclick="openTab(event, 'midyearLeaver')">Mid Year Leaver</button>
       <button class="tablinks" onclick="openTab(event, 'midyearHours')">Mid Year Hours Change</button>
     </div>
 
@@ -17,26 +17,58 @@
       <h3>Full Time / Part Time</h3>
       Weekly Hours:
       <input type="text" id="hours" value="37.5" onchange="calculatePartTime()"" /><br><br>
+      Daily Hours:
+      <input type="text" id="dailyHours" value="7.5" onchange="calculatePartTime()"" /><br><br>
       Full Time Leave Entitlement (days):
       <input type="text" id="fteLeave" value="25" onchange="calculatePartTime()"" /><br><br>
-      Calculated Hours Leave:
+      <strong>Calculated Hours Leave:</strong>
       <input disabled class="result" type="text" id="leave" value="187.5" /><br><br>
-      Calculated Hours Bank Holidays:
+      <strong>Calculated Days Leave:</strong>
+      <input disabled class="result" type="text" id="daysLeave" value="25" /><br><br>
+      <strong>Calculated Hours Bank Holidays:</strong>
       <input disabled class="result" type="text" id="bankHoliday" value="60" /><br><br>
+      <strong>Calculated Days Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="daysBankHoliday" value="8" /><br><br>
     </div>
 
     <div id="midyearStart" class="tabcontent">
       <h3>Mid Year Starter</h3>
       Weekly Hours:
       <input type="text" id="midHours" value="37.5" onchange="calculateMidYear()"" /><br><br>
+      Daily Hours:
+      <input type="text" id="midDailyHours" value="7.5" onchange="calculateMidYear()"" /><br><br>
       Full Time Leave Entitlement (days):
       <input type="text" id="midFteLeave" value="25" onchange="calculateMidYear()"" /><br><br>
       Start Date:
       <input type="text" id="midDateStarted" value="2017-10-01" onchange="calculateMidYear()"" /><br><br>
-      Calculated Hours Leave:
+      <strong>Calculated Hours Leave:</strong>
       <input disabled class="result" type="text" id="midLeave" value="187.5" /><br><br>
-      Calculated Hours Bank Holidays:
+      <strong>Calculated Days Leave:</strong>
+      <input disabled class="result" type="text" id="midDaysLeave" value="25" /><br><br>
+      <strong>Calculated Hours Bank Holidays:</strong>
       <input disabled class="result" type="text" id="midBH" value="60" /><br><br>
+      <strong>Calculated Days Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="midDaysBH" value="8" /><br><br>
+    </div>
+
+    <div id="midyearLeaver" class="tabcontent">
+      <h3>Mid Year Leaver</h3>
+      Weekly Hours:
+      <input type="text" id="leaverHours" value="37.5" onchange="calculateLeaver()"" /><br><br>
+      Daily Hours:
+      <input type="text" id="leaverDailyHours" value="7.5" onchange="calculateLeaver()"" /><br><br>
+      Full Time Leave Entitlement (days):
+      <input type="text" id="leaverFteLeave" value="25" onchange="calculateLeaver()"" /><br><br>
+      End Date:
+      <input type="text" id="leaverEndDate" value="2018-10-01" onchange="calculateLeaver()"" /><br><br>
+      <strong>Calculated Hours Leave:</strong>
+      <input disabled class="result" type="text" id="leaverLeave" value="187.5" /><br><br>
+      <strong>Calculated Days Leave:</strong>
+      <input disabled class="result" type="text" id="leaverDaysLeave" value="25" /><br><br>
+      <strong>Calculated Hours Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="leaverBH" value="60" /><br><br>
+      <strong>Calculated Days Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="leaverDaysBH" value="8" /><br><br>
     </div>
 
     <div id="midyearHours" class="tabcontent">
@@ -49,10 +81,11 @@
       <input type="text" id="midChangeDateStarted" value="2017-10-01" onchange="calculateMidChangeYear()"" /><br><br>
       New Weekly Hours:
       <input type="text" id="midChangeNewHours" value="37.5" onchange="calculateMidChangeYear()"" /><br><br>
-      Calculated Hours Leave:
+      <strong>Calculated Hours Leave:</strong>
       <input disabled class="result" type="text" id="midChangeLeave" value="187.5" /><br><br>
-      Calculated Hours Bank Holidays:
+      <strong>Calculated Hours Bank Holidays:</strong>
       <input disabled class="result" type="text" id="midChangeBH" value="60" /><br><br>
     </div>
+    <script src="index.js"></script>
   </body>
 </html>

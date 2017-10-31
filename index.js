@@ -1,14 +1,12 @@
 function openTab (event, activeTabId) {
-  let i, tabcontent, tablinks
+  let tabcontent = document.getElementsByClassName('tabcontent')
+  let tablinks = document.getElementsByClassName('tablinks')
 
-  tabcontent = document.getElementsByClassName('tabcontent')
-  tablinks = document.getElementsByClassName('tablinks')
-
-  for (i = 0; i < tabcontent.length; i++) {
+  for (let i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = 'none'
   }
 
-  for (i = 0; i < tablinks.length; i++) {
+  for (let i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(' active', '')
   }
 
@@ -18,14 +16,20 @@ function openTab (event, activeTabId) {
 
 function calculatePartTime () {
   let hours = document.getElementById('hours').value
+  let dailyHours = document.getElementById('dailyHours').value
 
   let leaveEntitlement = hours /
     37.5 *
     7.5 *
     document.getElementById('fteLeave').value
 
-  document.getElementById('leave').value = Math.round((leaveEntitlement + 0.00001) * 100) / 100
-  document.getElementById('bankHoliday').value = Math.round((hours / 37.5 * 8 * 7.5 + 0.00001) * 100) / 100
+  let leaveHours = Math.round((leaveEntitlement + 0.00001) * 100) / 100
+  let bankHolidayHours = Math.round((hours / 37.5 * 8 * 7.5 + 0.00001) * 100) / 100
+
+  document.getElementById('leave').value = leaveHours
+  document.getElementById('daysLeave').value = Math.round((leaveHours / dailyHours + 0.00001) * 100) / 100
+  document.getElementById('bankHoliday').value = bankHolidayHours
+  document.getElementById('daysBankHoliday').value = Math.round((bankHolidayHours / dailyHours + 0.00001) * 100) / 100
 }
 
 function calculateMidYear () {
@@ -40,6 +44,7 @@ function calculateMidYear () {
   let yearProportion = (millisecondsWorked / (1000 * 60 * 60 * 24)) / 365
 
   let hours = document.getElementById('midHours').value
+  let dailyHours = document.getElementById('midDailyHours').value
 
   let leaveEntitlement = hours /
     37.5 *
@@ -47,8 +52,42 @@ function calculateMidYear () {
     document.getElementById('midFteLeave').value *
     yearProportion
 
-  document.getElementById('midLeave').value = Math.round((leaveEntitlement + 0.00001) * 100) / 100
-  document.getElementById('midBH').value = Math.round((hours / 37.5 * 8 * 7.5 + 0.00001) * 100) / 100
+  let leaveHours = Math.round((leaveEntitlement + 0.00001) * 100) / 100
+  let bankHolidayHours = Math.round((hours / 37.5 * 8 * 7.5 + 0.00001) * 100) / 100
+
+  document.getElementById('midLeave').value = leaveHours
+  document.getElementById('midDaysLeave').value = Math.round((leaveHours / dailyHours + 0.00001) * 100) / 100
+  document.getElementById('midBH').value = bankHolidayHours
+  document.getElementById('midDaysBH').value = Math.round((bankHolidayHours / dailyHours + 0.00001) * 100) / 100
+}
+
+function calculateLeaver () {
+  let today = new Date()
+  let currentAnnualLeaveStart = today.getMonth() < 9
+    ? (today.getFullYear() - 1) + '-10-01'
+    : today.getFullYear() + '-10-01'
+
+  let millisecondsWorked = new Date(document.getElementById('leaverEndDate').value).getTime() -
+    new Date(currentAnnualLeaveStart).getTime()
+
+  let yearProportion = (millisecondsWorked / (1000 * 60 * 60 * 24)) / 365
+
+  let hours = document.getElementById('leaverHours').value
+  let dailyHours = document.getElementById('leaverDailyHours').value
+
+  let leaveEntitlement = hours /
+    37.5 *
+    7.5 *
+    document.getElementById('leaverFteLeave').value *
+    yearProportion
+
+  let leaveHours = Math.round((leaveEntitlement + 0.00001) * 100) / 100
+  let bankHolidayHours = Math.round((hours / 37.5 * 8 * 7.5 + 0.00001) * 100) / 100
+
+  document.getElementById('leaverLeave').value = leaveHours
+  document.getElementById('leaverDaysLeave').value = Math.round((leaveHours / dailyHours + 0.00001) * 100) / 100
+  document.getElementById('leaverBH').value = bankHolidayHours
+  document.getElementById('leaverDaysBH').value = Math.round((bankHolidayHours / dailyHours + 0.00001) * 100) / 100
 }
 
 function calculateMidChangeYear () {
@@ -107,3 +146,6 @@ function calculateMidChangeYear () {
   document.getElementById('midChangeLeave').value = Math.round((leaveEntitlement + 0.00001) * 100) / 100
   document.getElementById('midChangeBH').value = Math.round((bhEntitlement + 0.00001) * 100) / 100
 }
+
+// -add on days equivalent (using input hours in day)
+// make it work as an electron app
