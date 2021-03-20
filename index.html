@@ -2,110 +2,90 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>title</title>
+    <title>Holiday Calculator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div class="words"></div>Hours worked per week:<div>
-    <input type="number" id="hoursWorkedPerWeek" />
-    <div class="words"></div>Full-time annual leave entitlement (days): <div>
-    <input type="number" id="fullTimeAnnualLeaveEntitlementDays" />
-    <div class="words"></div>Pro rata annual leave entitlement (hours):<div>
-    <div id="proRataAnnualLeaveEntitlementHours"></div>
-    <div class="words"></div>Date Started:<div>
-    <input type="date" id="dateStarted" />
-    <div class="words"></div>Date Finished:<div>
-    <input type="date" id="dateFinished" />
-    <div class="words"></div>Pro rata annual leave entitlement for the period (hrs):<div>
-    <div id="proRataAnnualLeaveEntitlementForThePeriodHours"></div>
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'fullPartTime')">Full Time / Part Time</button>
+      <button class="tablinks" onclick="openTab(event, 'midyearStart')">Mid Year Starter</button>
+      <button class="tablinks" onclick="openTab(event, 'midyearLeaver')">Mid Year Leaver</button>
+      <button class="tablinks" onclick="openTab(event, 'midyearHours')">Mid Year Hours Change</button>
+    </div>
 
-  <script type="text/javascript">
-    var hoursWorkedPerWeek = 37.5
-    var fullTimeHoursPerWeek = 37.5
-    var numberOfBankHolidays = 8
-    var fullTimeAnnualLeaveEntitlementDays = 25
-    var proRataAnnualLeaveEntitlementHours = 187.5
-    var dateStarted
-    var dateFinished
-    var proRataAnnualLeaveEntitlementForThePeriodHours = 187.5
+    <div id="fullPartTime" class="tabcontent">
+      <h3>Full Time / Part Time</h3>
+      Weekly Hours:
+      <input type="text" id="hours" value="37.5" onchange="calculatePartTime()"" /><br><br>
+      Daily Hours:
+      <input type="text" id="dailyHours" value="7.5" onchange="calculatePartTime()"" /><br><br>
+      Full Time Leave Entitlement (days):
+      <input type="text" id="fteLeave" value="25" onchange="calculatePartTime()"" /><br><br>
+      <strong>Calculated Hours Leave:</strong>
+      <input disabled class="result" type="text" id="leave" value="187.5" /><br><br>
+      <strong>Calculated Days Leave:</strong>
+      <input disabled class="result" type="text" id="daysLeave" value="25" /><br><br>
+      <strong>Calculated Hours Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="bankHoliday" value="60" /><br><br>
+      <strong>Calculated Days Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="daysBankHoliday" value="8" /><br><br>
+    </div>
 
-    function autorun () {
-      refreshFields()
-      var hpw = document.getElementById('hoursWorkedPerWeek')
-      hpw.addEventListener('input', function (hpw) {
-        hoursWorkedPerWeek = hpw.target.value
-        deriveFields()
-      }, false)
-      hpw.onpropertychange = hpw.oninput
+    <div id="midyearStart" class="tabcontent">
+      <h3>Mid Year Starter</h3>
+      Weekly Hours:
+      <input type="text" id="midHours" value="37.5" onchange="calculateMidYear()"" /><br><br>
+      Daily Hours:
+      <input type="text" id="midDailyHours" value="7.5" onchange="calculateMidYear()"" /><br><br>
+      Full Time Leave Entitlement (days):
+      <input type="text" id="midFteLeave" value="25" onchange="calculateMidYear()"" /><br><br>
+      Start Date:
+      <input type="text" id="midDateStarted" value="2017-10-01" onchange="calculateMidYear()"" /><br><br>
+      <strong>Calculated Hours Leave:</strong>
+      <input disabled class="result" type="text" id="midLeave" value="187.5" /><br><br>
+      <strong>Calculated Days Leave:</strong>
+      <input disabled class="result" type="text" id="midDaysLeave" value="25" /><br><br>
+      <strong>Calculated Hours Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="midBH" value="60" /><br><br>
+      <strong>Calculated Days Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="midDaysBH" value="8" /><br><br>
+    </div>
 
-      var ftaled = document.getElementById('fullTimeAnnualLeaveEntitlementDays')
-      ftaled.addEventListener('input', function (ftaled) {
-        fullTimeAnnualLeaveEntitlementDays = ftaled.target.value
-        deriveFields()
-      }, false)
-      ftaled.onpropertychange = ftaled.oninput
+    <div id="midyearLeaver" class="tabcontent">
+      <h3>Mid Year Leaver</h3>
+      Weekly Hours:
+      <input type="text" id="leaverHours" value="37.5" onchange="calculateLeaver()"" /><br><br>
+      Daily Hours:
+      <input type="text" id="leaverDailyHours" value="7.5" onchange="calculateLeaver()"" /><br><br>
+      Full Time Leave Entitlement (days):
+      <input type="text" id="leaverFteLeave" value="25" onchange="calculateLeaver()"" /><br><br>
+      End Date:
+      <input type="text" id="leaverEndDate" value="2018-10-01" onchange="calculateLeaver()"" /><br><br>
+      <strong>Calculated Hours Leave:</strong>
+      <input disabled class="result" type="text" id="leaverLeave" value="187.5" /><br><br>
+      <strong>Calculated Days Leave:</strong>
+      <input disabled class="result" type="text" id="leaverDaysLeave" value="25" /><br><br>
+      <strong>Calculated Hours Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="leaverBH" value="60" /><br><br>
+      <strong>Calculated Days Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="leaverDaysBH" value="8" /><br><br>
+    </div>
 
-      var ds = document.getElementById('dateStarted')
-      ds.addEventListener('input', function (ds) {
-        dateStarted = ds.target.value
-        deriveFields()
-      }, false)
-      ds.onpropertychange = ds.oninput
-
-      var df = document.getElementById('dateFinished')
-      df.addEventListener('input', function (df) {
-        dateFinished = df.target.value
-        deriveFields()
-      }, false)
-      df.onpropertychange = df.oninput
-    }
-
-    function deriveFields () {
-      var hoursNeededForBankHolidays = (fullTimeHoursPerWeek * (numberOfBankHolidays / 5))
-      var proRataAnnualLeaveEntitlementHourstemp = (hoursWorkedPerWeek * (+fullTimeAnnualLeaveEntitlementDays + numberOfBankHolidays) / 5)
-      proRataAnnualLeaveEntitlementHours = proRataAnnualLeaveEntitlementHourstemp - hoursNeededForBankHolidays
-      var ds = new Date(dateStarted)
-      var df = new Date(dateFinished)
-      var years = ((df.getTime() - ds.getTime()) / (1000 * 60 * 60 * 24)) / (365 + leapYearBetweenDates(ds, df))
-      proRataAnnualLeaveEntitlementForThePeriodHours = years * proRataAnnualLeaveEntitlementHourstemp - (years * hoursNeededForBankHolidays)
-      refreshFields()
-    }
-
-    function leapYearBetweenDates (startDate, endDate) {
-      var lastFebruaryLeapYear = endDate.getFullYear()
-      if (endDate.getMonth() > 2) {
-      } else {
-        lastFebruaryLeapYear -= 1
-      }
-      lastFebruaryLeapYear = findLatestLeapYear(lastFebruaryLeapYear)
-      var lastFebruary29th = new Date(lastFebruaryLeapYear, 2, 29)
-      if ((endDate - startDate) > (endDate - lastFebruary29th)) {
-        return 1 + (Math.floor(Math.round(((lastFebruary29th - startDate) / (1000 * 60 * 60 * 24)) / 365) / 4))
-      }
-      return 0
-    }
-
-    function findLatestLeapYear (year) {
-      if (leapYear(year)) {
-        return year
-      } else {
-        return findLatestLeapYear(year - 1)
-      }
-    }
-
-    function leapYear (year) {
-      return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)
-    }
-
-    function refreshFields () {
-      document.getElementById('hoursWorkedPerWeek').value = hoursWorkedPerWeek
-      document.getElementById('fullTimeAnnualLeaveEntitlementDays').value = fullTimeAnnualLeaveEntitlementDays
-      document.getElementById('proRataAnnualLeaveEntitlementHours').innerHTML = proRataAnnualLeaveEntitlementHours
-      document.getElementById('proRataAnnualLeaveEntitlementForThePeriodHours').innerHTML = proRataAnnualLeaveEntitlementForThePeriodHours
-    }
-
-    if (window.addEventListener) window.addEventListener('load', autorun, false)
-    else if (window.attachEvent) window.attachEvent('onload', autorun)
-    else window.onload = autorun
-  </script>
+    <div id="midyearHours" class="tabcontent">
+      <h3>Mid Year Hours Change</h3>
+      Weekly Hours at Start of Leave Year:
+      <input type="text" id="midChangeOldHours" value="37.5" onchange="calculateMidChangeYear()"" /><br><br>
+      Full Time Leave Entitlement (days):
+      <input type="text" id="midChangeFteLeave" value="25" onchange="calculateMidChangeYear()"" /><br><br>
+      Date Hours Changed:
+      <input type="text" id="midChangeDateStarted" value="2017-10-01" onchange="calculateMidChangeYear()"" /><br><br>
+      New Weekly Hours:
+      <input type="text" id="midChangeNewHours" value="37.5" onchange="calculateMidChangeYear()"" /><br><br>
+      <strong>Calculated Hours Leave:</strong>
+      <input disabled class="result" type="text" id="midChangeLeave" value="187.5" /><br><br>
+      <strong>Calculated Hours Bank Holidays:</strong>
+      <input disabled class="result" type="text" id="midChangeBH" value="60" /><br><br>
+    </div>
+    <script src="index.js"></script>
   </body>
 </html>

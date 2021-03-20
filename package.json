@@ -1,0 +1,28 @@
+{
+  "name": "al-calculator",
+  "version": "1.0.0",
+  "description": "1. Double click on index.html to open the calculator in your default browser. 2. Click on the tab that describes the required employee circumstance. 3. Change any details you need to and the leave/bank holiday calculation boxes will automatically be    populated.",
+  "main": "bootstrap.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "asar pack Al.app/Contents/Resources/app Al.app/Contents/Resources/app/app.asar",
+    "build": "electron-packager . cALculator --asar --overwrite --all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aimeeew/al-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aimeeew/al-calculator/issues"
+  },
+  "homepage": "https://github.com/aimeeew/al-calculator#readme",
+  "dependencies": {
+    "electron": "^1.7.9"
+  },
+  "devDependencies": {
+    "asar": "^0.13.0",
+    "electron-packager": "^9.1.0"
+  }
+}
